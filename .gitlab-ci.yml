@@ -1,0 +1,15 @@
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "master"'
+
+pages:
+  image: node:latest
+  stage: deploy
+  script:
+    - npm install --no-progress
+    - npm run build
+    - mv public public-vue
+    - mv dist public
+  artifacts:
+    paths:
+      - public
