@@ -35,7 +35,6 @@
         }"
       >
         <FileSelect
-          id="image-file-select"
           :disabled="selectedType !== 'img'"
           :accept-types="['image/png', 'image/jpg', 'image/jpeg']"
           :files.sync="imgFile"

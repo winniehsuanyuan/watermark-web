@@ -9,29 +9,26 @@
     @dragleave="dragLeave"
   >
     <div v-show="isDraggingOver" :class="$style.uploadIcon"></div>
-    <input
-      :id="id"
-      type="file"
-      :accept="acceptTypes"
-      :multiple="multiple"
-      :disabled="disabled"
-      :class="$style.defaultInput"
-      @change="onChange"
-    />
-    <label
-      v-if="!files.length"
-      :for="id"
-      :class="{
-        [$style.label]: !disabled,
-        [$style.labelDragging]: isDraggingOver,
-      }"
-    >
-      <div :class="$style.instruction">
+    <div v-if="!files.length" :class="$style.instruction">
+      <label
+        :class="{
+          [$style.label]: !disabled,
+          [$style.labelDragging]: isDraggingOver,
+        }"
+      >
+        <input
+          type="file"
+          :accept="acceptTypes"
+          :multiple="multiple"
+          :disabled="disabled"
+          :class="$style.input"
+          @change="onChange"
+        />
         請將你的
         <span :class="$style.fileType">{{ accept }}</span>
-        檔拖曳至此 或 <span :class="$style.wordsToClick">點選此處</span>上傳
-      </div>
-    </label>
+        檔拖曳至此或 <span :class="$style.wordsToClick">點選此處</span>上傳
+      </label>
+    </div>
     <ul v-if="files.length" :class="$style.list">
       <li v-for="(file, index) in files" :key="index">
         <span :class="$style.fileName">{{ file.name }}</span>
@@ -54,10 +51,6 @@ import deleteIconGreen from "../assets/delete-green.svg";
 export default {
   name: "FileSelect",
   props: {
-    id: {
-      type: String,
-      required: true,
-    },
     multiple: {
       type: Boolean,
       default: false,
@@ -165,10 +158,8 @@ export default {
   top: 30%;
 }
 
-.defaultInput {
-  width: 0;
-  height: 0;
-  opacity: 0;
+.input {
+  display: none;
 }
 
 .label {

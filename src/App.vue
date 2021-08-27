@@ -3,7 +3,6 @@
     <div :class="$style.left">
       <FileSelect
         v-show="fileList.length === 0"
-        id="pdf-file-select"
         multiple
         :accept-types="['application/pdf']"
         :files.sync="fileList"
@@ -26,12 +25,12 @@
         @update:unit="watermarkUnit = $event"
       />
       <transition
-        :enter-class="$style.downloadStart"
-        :leave-to-class="$style.downloadStart"
-        :enter-active-class="$style.downloadActive"
-        :leave-active-class="$style.downloadActive"
-        :leave-class="$style.downloadEnd"
-        :enter-to-class="$style.downloadEnd"
+        :enter-class="$style.transitionEnter"
+        :enter-active-class="$style.transitionEnterActive"
+        :enter-to-class="$style.transitionEnterTo"
+        :leave-class="$style.transitionLeave"
+        :leave-active-class="$style.transitionLeaveActive"
+        :leave-to-class="$style.transitionLeaveTo"
       >
         <FileDownload
           v-if="showDownloadButton"
@@ -78,42 +77,45 @@ export default {
 };
 </script>
 
-<style module lang="scss">
+<style lang="scss" module>
 @use '~@/theme.scss' as theme;
 
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
 .app {
+  height: 100%;
+  display: flex;
   font-family: Verdana, Arial, sans-serif;
   color: theme.$font-color;
   font-size: 15px;
 }
 
 .left {
-  width: 65%;
-  height: 100vh;
-  position: absolute;
-  left: 0px;
-  top: 0px;
+  flex: 2;
 }
 
 .right {
-  width: 35%;
-  height: 100vh;
-  position: absolute;
-  right: 0px;
-  top: 0px;
+  flex: 1;
   background-color: theme.$color-gray-light;
   border-left: solid 1px theme.$color-gray-dark;
 }
 
-.downloadStart {
+.transitionEnter,
+.transitionLeaveTo {
   opacity: 0;
 }
 
-.downloadActive {
-  transition: all 0.2s;
+.transitionEnterTo,
+.transitionLeave {
+  opacity: 1;
 }
 
-.downloadEnd {
-  opacity: 1;
+.transitionEnterActive,
+.transitionLeaveActive {
+  transition: all 0.2s;
 }
 </style>

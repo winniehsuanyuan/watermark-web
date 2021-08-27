@@ -5,18 +5,16 @@
       <NoticeWindow :file-names="encryptedFileNames" @confirm="confirm" />
     </div>
     <div v-if="selectedIndex > -1" :class="$style.selectionContainer">
-      <div :class="$style.menu">
-        <SelectionMenu
-          :file-list="fileListForMenu"
-          :selected.sync="selectedIndex"
-          @update:files="$emit('update:files', $event)"
-        />
-      </div>
-      <div :class="$style.addIcon">
-        <FileSelectButton
-          @update:files="$emit('update:files', [...$event, ...fileList])"
-        />
-      </div>
+      <SelectionMenu
+        :class="$style.selectionMenu"
+        :file-list="fileListForMenu"
+        :selected.sync="selectedIndex"
+        @update:files="$emit('update:files', $event)"
+      />
+      <FileSelectButton
+        :class="$style.fileSelectButton"
+        @update:files="$emit('update:files', [...$event, ...fileList])"
+      />
     </div>
     <div ref="root" :class="$style.previewContainer">
       <canvas
@@ -226,14 +224,13 @@ export default {
   text-align: center;
 }
 
-.menu {
+.selectionMenu {
   width: 250px;
-  padding: 0;
   display: inline-block;
   vertical-align: middle;
 }
 
-.addIcon {
+.fileSelectButton {
   margin-left: 15px;
   display: inline-block;
   vertical-align: middle;
