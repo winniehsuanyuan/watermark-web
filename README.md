@@ -1,5 +1,6 @@
 # Watermark PDF in Browser
 https://winniehsuanyuan.github.io/watermark-web/
+
 This project is a prototype that supports embedding watermark to unencrypted PDFs in client side.
 
 1. Select PDFs by file dialog or drag and drop.
